@@ -1,0 +1,22 @@
+{
+  "name": "mern-goals",
+  "version": "1.0.0",
+  "description": "A MERN stack project implementing CRUD functionality using REST APIs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js"
+
+  },
+  "author": "Jawwad",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "mongoose": "^6.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
