@@ -1,13 +1,20 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { getGoals, createGoal, updateGoal, deleteGoal }  = require('../controllers/goalController');
+const {
+  getGoals,
+  setGoal,
+  updateGoal,
+  deleteGoal,
+} = require("../controllers/goalController");
+// Protect function basically check your http request header's authorization object for token
+const { protect } = require("../middleware/authMiddleware");
 
-router.get('/', getGoals)
+// Route only defined as '/' as /api/goals already mentioned as default in server.js
+// We are protecting the routes by forcing the request to go through authMiddleware first to verify tokens
+router.route('/').get(protect, getGoals).post(protect, setGoal)
 
-router.post('/', createGoal)
+// When the route is hit by post request, createGoal function from GoalController file will be called
+// As it it a protected route, an auth token must be sent with every request
+router.route('/:id').delete(protect, deleteGoal).put(protect, updateGoal)
 
-router.put('/:id', updateGoal)
-
-router.delete('/:id', deleteGoal)
-
-module.exports = router 
+module.exports = router;
