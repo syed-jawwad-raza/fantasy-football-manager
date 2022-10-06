@@ -212,4 +212,7 @@ h3 {
   .heading p {
     font-size: 1.5rem;
   }
+  .players {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
