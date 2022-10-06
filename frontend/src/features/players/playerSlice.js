@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import goalService from "./goalService";
+import playerService from "./playerService";
 
 const initialState = {
-    goals: [],
+    players: [],
     // Following 3 can be added to any redux slice
     isError: false,
     isSuccess: false,
@@ -10,85 +10,85 @@ const initialState = {
     message: '',
 }
 
-// Create new goal
-export const createGoal = createAsyncThunk('goal/create', async(goalData, thunkAPI) => {
+// Add new player
+export const addPlayer = createAsyncThunk('player/create', async(playerData, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token // Using getState method of thunkAPI (Another RTK perk)
-        return await goalService.createGoal(goalData, token) // As createGoal is a protected route we'll need to send a token
+        return await playerService.addPlayer(playerData, token) // As addPlayer is a protected route we'll need to send a token
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)       
     }
 })
 
-// Get all goals for current user
+// Get all players for current user
 // Passing in underscore as placeholder as we dont have a fist argument for async function
-export const getGoals = createAsyncThunk('goals/getAll', async (_, thunkAPI) => { 
+export const getplayers = createAsyncThunk('players/getAll', async (_, thunkAPI) => { 
     try {
         const token = thunkAPI.getState().auth.user.token
-        return await goalService.getGoals(token) // We only need a token to get goals
+        return await playerService.getPlayers(token) // We only need a token to get players
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)
     }
 })
 
-// Delete goal
-export const deleteGoal = createAsyncThunk('goal/delete', async (id, thunkAPI) => {
+// Delete player
+export const deletePlayer = createAsyncThunk('player/delete', async (id, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token
-        return await goalService.deleteGoal(id, token)
+        return await playerService.deletePlayer(id, token)
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)
     }
 })
 
-export const updateGoal = createAsyncThunk('goal/update')
+export const updatePlayer = createAsyncThunk('player/update')
 
-export const goalSlice = createSlice({
-    name: 'goal',
+export const playerSlice = createSlice({
+    name: 'player',
     initialState,
     reducers : {
-        reset: (state) => initialState // We can remove goals too as we reset as we don't need them them to persist unlike user
+        reset: (state) => initialState, // We can remove players too as we reset as we don't need them them to persist unlike user
     },
     extraReducers: (builder) => {
         builder
-            .addCase(createGoal.pending, (state) => {
+            .addCase(addPlayer.pending, (state) => {
                 state.isLoading = true
             })
-            .addCase(createGoal.fulfilled, (state, action) => {
+            .addCase(addPlayer.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                state.goals.push(action.payload) // Pushing the new goal we just created which was sent back by API
+                state.players.push(action.payload) // Pushing the new player we just created which was sent back by API
             })
-            .addCase(createGoal.rejected, (state, action) => {
+            .addCase(addPlayer.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.message = action.payload
             })
-            .addCase(getGoals.pending, (state) => {
+            .addCase(getplayers.pending, (state) => {
                 state.isLoading = true
             })
-            .addCase(getGoals.fulfilled, (state, action) => {
+            .addCase(getplayers.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                state.goals = action.payload // We are getting all goals from the API
+                state.players = action.payload // We are getting all players from the API
             })
-            .addCase(getGoals.rejected, (state, action) => {
+            .addCase(getplayers.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.message = action.payload
             })
-            .addCase(deleteGoal.pending, (state) => {
+            .addCase(deletePlayer.pending, (state) => {
                 state.isLoading = true
             })
-            .addCase(deleteGoal.fulfilled, (state, action) => {
+            .addCase(deletePlayer.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                state.goals = state.goals.filter((goal) => goal._id !== action.payload.id) // We are getting all goals except the one just deleted
+                state.players = state.players.filter((player) => player._id !== action.payload.id) // We are getting all players except the one just deleted
             })
-            .addCase(deleteGoal.rejected, (state, action) => {
+            .addCase(deletePlayer.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.message = action.payload
@@ -96,7 +96,7 @@ export const goalSlice = createSlice({
     }
 })
 
-export const { reset } = goalSlice.actions
-export default goalSlice.reducer
+export const { reset } = playerSlice.actions
+export default playerSlice.reducer
 
 

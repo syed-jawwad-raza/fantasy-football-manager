@@ -1,7 +1,7 @@
 {
-  "name": "mern-goals",
+  "name": "football-manager",
   "version": "1.0.0",
-  "description": "A MERN stack project implementing CRUD functionality using REST APIs",
+  "description": "An application to help you build your dream squad",
   "main": "server.js",
   "scripts": {
     "start": "node backend/server.js",

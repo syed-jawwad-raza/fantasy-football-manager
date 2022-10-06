@@ -84,7 +84,7 @@ const Register = () => {
               id="name"
               name="name"
               value={name}
-              placeholder="Enter your name"
+              placeholder="Enter your team's name"
               onChange={onChange}
             />
           </div>

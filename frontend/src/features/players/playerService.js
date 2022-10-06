@@ -1,21 +1,21 @@
 import axios from "axios";
-const API_URL = '/api/goals/'
+const API_URL = '/api/players/'
 
-// Create new Goal
-const createGoal = async (goalData, token) => {
+// Add new player
+const addPlayer = async (playerData, token) => {
     // Setting up bearer token to be sent in request header for authorization
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
         }
     }
-    const response = await axios.post(API_URL, goalData, config) // Config is the 3rd parameter having the header
+    const response = await axios.post(API_URL, playerData, config) // Config is the 3rd parameter having the header
 
     return response.data;
 }
 
-// Get user Goals
-const getGoals = async (token) => {
+// Get user players
+const getPlayers = async (token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
@@ -26,22 +26,22 @@ const getGoals = async (token) => {
     return response.data
 }
 
-// Delete goal
-const deleteGoal = async (goalId, token) => {
+// Delete PLayer
+const deletePlayer = async (playerId, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
         }
     }
 
-    const response = await axios.delete(API_URL + goalId , config)  
+    const response = await axios.delete(API_URL + playerId , config)  
     return response.data
 }
 
-const goalService = {
-    createGoal,
-    getGoals,
-    deleteGoal
+const playerService = {
+    addPlayer,
+    getPlayers,
+    deletePlayer
 }
 
-export default goalService;
+export default playerService;

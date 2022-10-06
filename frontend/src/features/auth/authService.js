@@ -20,10 +20,12 @@ const register = async (userData) => {
 const login = async (userData) => {
   const response = await axios.post(API_URL + "login", userData);
 
-  if (response.data) {
+  if (response.data._id) {
     // Takes a key-value pair as arguments and saves the pair to local storage. Both must be strings
     // Could have also used cookies
     localStorage.setItem("user", JSON.stringify(response.data));
+  } else {
+    throw new Error(response.data.message)
   }
   return response.data;
 };
