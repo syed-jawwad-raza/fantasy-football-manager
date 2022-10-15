@@ -69,5 +69,5 @@ To run this project, you will need to add the following environment variables to
 
 - Add a landing page
 
-- Add live data from API-FOOTBALL
+- Add live data from [API-FOOTBALL](https://rapidapi.com/api-sports/api/api-football)
 
