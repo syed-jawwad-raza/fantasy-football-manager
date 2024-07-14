@@ -18,7 +18,7 @@ A web application to help you build your dream squad.
 Clone the project
 
 ```bash
-  git clone https://github.com/jawwad2022skipq/fantasy-football-manager
+  git clone https://github.com/syed-jawwad-raza/fantasy-football-manager
 ```
 
 Go to the project directory
